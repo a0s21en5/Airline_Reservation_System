@@ -15,3 +15,25 @@
 >* Update Flight Information
 >* Cancellation of Reservation
  
+
+
+# Tables
+
+> Admin Login
+>* Id
+>* Name
+>* Password
+
+> User Login
+>* Id
+>* Name
+>* Password
+
+> Admin Plane
+>* Plane Id
+>* Plane Name
+
+> Flight Booking 
+>* Booking Id
+>* From 
+>* To
