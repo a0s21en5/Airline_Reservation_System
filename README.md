@@ -33,7 +33,7 @@
 >* Plane Id
 >* Plane Name
 
-> Flight Booking 
+> Flight Booking
 >* Booking Id
 >* From 
 >* To
