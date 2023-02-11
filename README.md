@@ -33,6 +33,8 @@
 >* Plane Id
 >* Plane Name
 
+> Plain Booked History
+
 > Flight Booking
 >* Booking Id
 >* From 
