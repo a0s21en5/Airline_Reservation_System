@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Airline_Reservation_System.Models.Plain>
+
+@{
+    ViewData["Title"] = "GetAllPlain";
+}
+
+<h1>GetAllPlain</h1>
+
+<p>
+    <a asp-action="AddPlain">Add New Plain</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.plainName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.To)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.From)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.plainName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.To)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.From)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.plainId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.plainId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.plainId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
