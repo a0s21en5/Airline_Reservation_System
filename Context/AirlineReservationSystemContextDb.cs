@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Airline_Reservation_System.Context
 {
-    public class AirlineReservationSystemContextDb:DbContext
+    public class AirlineReservationSystemContextDb: DbContext
     {
         public AirlineReservationSystemContextDb(DbContextOptions<AirlineReservationSystemContextDb> Context):base(Context)
         {
@@ -15,12 +15,11 @@ namespace Airline_Reservation_System.Context
             modelBuilder.Entity<UserLogin>().HasNoKey();
         }
 
-        //Create Admin Table in Database
-        public DbSet<Admin> admins { get; set; }
-
         public DbSet<User> users { get; set; }
 
         public DbSet<Plain> plains { get; set; }
+
+        public DbSet<Ticket> BookingTickets { get; set; }
 
         public DbSet<Airline_Reservation_System.Models.UserLogin> UserLogin { get; set; }
     }

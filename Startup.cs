@@ -31,47 +31,45 @@ namespace Airline_Reservation_System
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string LocalSQlConnectionString = "Server=DESKTOP-GPEF40G;Database=AirlineReservationSystem;Trusted_Connection=True";
+            //string LocalSQlConnectionString = "Server=DESKTOP-M1N8JGA;Database=AirlineReservationSystem;Trusted_Connection=True";
+            string LocalSQlConnectionString = Configuration.GetConnectionString("LocalDatabaseConnection");
             services.AddControllersWithViews();
             services.AddSession();
-            services.AddScoped<IAdminService,AdminService>();
-            services.AddScoped<IAdminRepository,AdminRepository>();
-            services.AddScoped<IUserService ,UserService>();
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService,UserService>();
+            services.AddScoped<IUserRepository,UserRepository>();
             services.AddScoped<IPlainService,PlainService>();
             services.AddScoped<IPlainRepository,PlainRepository>();
             services.AddScoped<ITokenGenerator,TokenGenerator>();
-            services.AddDbContext<AirlineReservationSystemContextDb>(A=>A.UseSqlServer(LocalSQlConnectionString));
-            ValidateTokenWithParameters(services, Configuration);
-
-            void ValidateTokenWithParameters(IServiceCollection services, IConfiguration configuration)
-            {
-                var userSecretKey = configuration["JwtValidationParameters:UserSecretKey"];
-                var userIssuer = configuration["JwtValidationParameters:UserIssuer"];
-                var userAudience = configuration["JwtValidationParameters:UserAudience"];
-                var userSecretKeyInBytes = Encoding.UTF8.GetBytes(userSecretKey);
-                var userSymmetricSecurityKey = new SymmetricSecurityKey(userSecretKeyInBytes);
-                var tokenValidationParameters = new TokenValidationParameters()
-                {
-                    ValidateIssuer = true,
-                    ValidIssuer = userIssuer,
-
-                    ValidateAudience = true,
-                    ValidAudience = userAudience,
-
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = userSymmetricSecurityKey,
-
-                    ValidateLifetime = true,
-                };
-                services.AddAuthentication(u =>
-                {
-                    u.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    u.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                }).AddJwtBearer(u => u.TokenValidationParameters = tokenValidationParameters);
-            }
+            services.AddDbContext<AirlineReservationSystemContextDb>(A => A.UseSqlServer(LocalSQlConnectionString));
+            JwtValidationParameters(services, Configuration);
         }
 
+        void JwtValidationParameters(IServiceCollection services, IConfiguration configuration)
+        {
+            var userSecretKey = configuration["JwtValidationParameters:UserSecretKey"];
+            var userIssuer = configuration["JwtValidationParameters:UserIssuer"];
+            var userAudience = configuration["JwtValidationParameters:UserAudience"];
+            var userSecretKeyInBytes = Encoding.UTF8.GetBytes(userSecretKey);
+            var userSymmetricSecurityKey = new SymmetricSecurityKey(userSecretKeyInBytes);
+            var tokenValidationParameters = new TokenValidationParameters()
+            {
+                ValidateIssuer = true,
+                ValidIssuer = userIssuer,
+
+                ValidateAudience = true,
+                ValidAudience = userAudience,
+
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = userSymmetricSecurityKey,
+
+                ValidateLifetime = true,
+            };
+            services.AddAuthentication(u =>
+            {
+                u.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                u.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(u => u.TokenValidationParameters = tokenValidationParameters);
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -80,7 +78,6 @@ namespace Airline_Reservation_System
             {
                 app.UseDeveloperExceptionPage();
             }
-
             else
             {
                 app.UseExceptionHandler("/Home/Error");
@@ -90,10 +87,10 @@ namespace Airline_Reservation_System
             app.UseHttpsRedirection();
             app.UseSession();
             app.UseStaticFiles();
-            app.Use(async(Context, next)=>
+            app.Use(async (Context, next) =>
             {
                 var tokenInfo = Context.Session.GetString("token");
-                Context.Request.Headers.Add("Authorization", "Bearer" + tokenInfo);
+                Context.Request.Headers.Add("Authorization", "Bearer " + tokenInfo);
                 await next();
             });
 

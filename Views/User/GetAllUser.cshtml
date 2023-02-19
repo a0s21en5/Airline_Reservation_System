@@ -24,6 +24,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.userImage)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Role)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -42,6 +45,9 @@
             <td>
                 <img src="@item.userImage" height="100" width="100">
                 @*Html.DisplayFor(modelItem => item.userImage)*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.userId">Edit</a> |

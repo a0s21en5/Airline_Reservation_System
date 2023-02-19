@@ -17,7 +17,6 @@ namespace Airline_Reservation_System.Controllers
             _tokenGenerator = tokenGenerator;
         }
 
-        //Index
         public ActionResult Index()
         {
             return View();
@@ -40,14 +39,14 @@ namespace Airline_Reservation_System.Controllers
         [HttpPost]
         public ActionResult RegisterUser(User user)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 bool addUserStatus = _userService.AddUser(user);
                 return RedirectToAction("GetAllUser");
             }
             else
-            { 
-                return View(user); 
+            {
+                return View(user);
             }
         }
 
@@ -94,12 +93,78 @@ namespace Airline_Reservation_System.Controllers
             {
                 User user = _userService.Login(userLogin);
                 string userToken = _tokenGenerator.GenerateToken(user.userId, user.userName);
-                HttpContext.Session.SetString("userToken", userToken);
-                return RedirectToAction("AdminDashBoard", "Plain");
+                
+                HttpContext.Session.SetString("UserToken", userToken);
+                HttpContext.Session.SetString("USERNAME", user.userName);
+
+                if(user.Role=="admin")
+                {
+                    //return RedirectToAction("GetAllPlain", "Plain"); 
+                    return RedirectToAction("AdminDashBoard", "Plain");
+                }
+                else
+                {
+                    return RedirectToAction("UserDashBoard");
+                }
             }
             catch(UserCredentialsInvalidException uaex)
             {
                 return StatusCode(500, uaex.Message);
+            }
+        }
+
+        public ActionResult UserDashBoard()
+        {
+            return RedirectToAction("UserGetAllPlains");
+        }
+
+        public ActionResult UserGetAllPlains()
+        {
+            List<Plain> allPlains = _userService.UserGetAllPlains();
+            return View(allPlains);
+        }
+
+        public ActionResult BookTicket(int id)
+        {
+            var userName = HttpContext.Session.GetString("USERNAME");
+            User user = _userService.FindUser(userName);
+            Ticket alreadyPresent = _userService.FindIdFromTicket(user.userId, id);
+
+            if (alreadyPresent != null)
+            {
+                return View(alreadyPresent);
+            }
+            else
+            {
+                Ticket ticket = new Ticket()
+                {
+                    plainId= id,
+                    userId= user.userId
+                };
+                bool status = _userService.BookTicket(ticket);
+                if (status)
+                {
+                    TempData["BookTicket"] = "Ticket Add Successfully";
+                    return RedirectToAction("UserDashBoard");
+                }
+            }
+            return RedirectToAction("UserDashBoard");
+        }
+
+        public ActionResult BookingHistory()
+        {
+            var userName = HttpContext.Session.GetString("USERNAME");
+            User user = _userService.FindUser(userName);
+            List<Ticket> Alltickets = _userService.BookingHistory(user.userId);
+            if(Alltickets.Count==0)
+            {
+                TempData["TicketHistoryNull"] = "Ticket History is Empty";
+                ViewData["userName"] = user;
+                return View();
+            }
+            else
+            {
+                return View(Alltickets);
             }
         }
     }

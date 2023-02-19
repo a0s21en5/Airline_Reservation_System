@@ -7,10 +7,15 @@ namespace Airline_Reservation_System.Service
     {
         bool AddUser(User user);
         User checkEdit(int id);
-        bool Delete(int id);
-        User Details(int id);
         void Edit(User user);
         List<User> GetAllUser();
+        bool Delete(int id);
+        User Details(int id);
         User Login(UserLogin userLogin);
+        List<Plain> UserGetAllPlains();
+        User FindUser(string userName);
+        Ticket FindIdFromTicket(int userId, int id);
+        bool BookTicket(Ticket ticket);
+        List<Ticket> BookingHistory(int userId);
     }
 }

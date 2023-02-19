@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Airline_Reservation_System.Migrations
 {
     [DbContext(typeof(AirlineReservationSystemContextDb))]
-    [Migration("20230213013609_Plain")]
-    partial class Plain
+    [Migration("20230219222817_First")]
+    partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,26 +20,6 @@ namespace Airline_Reservation_System.Migrations
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Airline_Reservation_System.Models.Admin", b =>
-                {
-                    b.Property<int>("adminId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("adminEmail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("adminPassword")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("adminId");
-
-                    b.ToTable("admins");
-                });
-
             modelBuilder.Entity("Airline_Reservation_System.Models.Plain", b =>
                 {
                     b.Property<int>("plainId")
@@ -47,15 +27,19 @@ namespace Airline_Reservation_System.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("From")
+                    b.Property<string>("Destination")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("To")
+                    b.Property<string>("Source")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("plainName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("plainNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -64,12 +48,37 @@ namespace Airline_Reservation_System.Migrations
                     b.ToTable("plains");
                 });
 
+            modelBuilder.Entity("Airline_Reservation_System.Models.Ticket", b =>
+                {
+                    b.Property<int>("ticketId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("plainId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("userId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ticketId");
+
+                    b.HasIndex("plainId");
+
+                    b.HasIndex("userId");
+
+                    b.ToTable("BookingTickets");
+                });
+
             modelBuilder.Entity("Airline_Reservation_System.Models.User", b =>
                 {
                     b.Property<int>("userId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("userEmail")
                         .IsRequired()
@@ -90,6 +99,38 @@ namespace Airline_Reservation_System.Migrations
                     b.HasKey("userId");
 
                     b.ToTable("users");
+                });
+
+            modelBuilder.Entity("Airline_Reservation_System.Models.UserLogin", b =>
+                {
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable("UserLogin");
+                });
+
+            modelBuilder.Entity("Airline_Reservation_System.Models.Ticket", b =>
+                {
+                    b.HasOne("Airline_Reservation_System.Models.Plain", "Plain")
+                        .WithMany()
+                        .HasForeignKey("plainId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Airline_Reservation_System.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("userId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Plain");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

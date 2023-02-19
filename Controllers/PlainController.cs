@@ -21,7 +21,7 @@ namespace Airline_Reservation_System.Controllers
             _configuration = configuration;
         }
 
-        //Show All Product
+        //Show All Plain
         public ActionResult GetAllPlain()
         {
             List<Plain> AllPlain = _plainService.GetAllPlain();
@@ -81,22 +81,20 @@ namespace Airline_Reservation_System.Controllers
         [Authorize]
         public ActionResult AdminDashBoard()
         {
-            var userToken = HttpContext.Session.GetString("userToken");
-            if (userToken == null)
+            string userToken = HttpContext.Session.GetString("UserToken");
+            if(userToken == null)
             {
-                return RedirectToAction("Login","User");
+                return RedirectToAction("Login", "User");
             }
-            //audience
+
             var userSecretKey = _configuration["JwtValidationParameters:UserSecretKey"];
             var userIssuer = _configuration["JwtValidationParameters:UserIssuer"];
             var userAudience = _configuration["JwtValidationParameters:UserAudience"];
 
-
-
-            bool isTokenValid = _tokenGenerator.IsTokenValid(userToken, userSecretKey, userIssuer, userAudience);
+            bool isTokenValid = _tokenGenerator.IsTokenValid(userSecretKey, userIssuer, userAudience, userToken);
             if(isTokenValid)
             {
-                return View();
+                return RedirectToAction("GetAllPlain");
             }
             else
             {

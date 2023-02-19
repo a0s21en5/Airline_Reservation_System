@@ -12,9 +12,12 @@ namespace Airline_Reservation_System.Models
         public string plainName { get; set; }
 
         [Required]
-        public string To { get; set; }
+        public string Source { get; set; }
 
         [Required]
-        public string From { get; set; }
+        public string Destination { get; set; }
+
+        [Required]
+        public string plainNumber { get; set; }
     }
 }

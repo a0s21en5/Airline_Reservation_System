@@ -27,16 +27,14 @@ namespace Airline_Reservation_System.Service
             var userSigningCredentials = new SigningCredentials(userSymmetricSecurityKey, SecurityAlgorithms.HmacSha256);
 
             var userJwtSecurityToken = new JwtSecurityToken(
-                issuer:"MVCApp",
-                audience: "MVCAppUsers",
-                claims:userClaims,
-                expires:DateTime.Now.AddMinutes(10),
-                signingCredentials:userSigningCredentials);
+                issuer: "AirlineReservationSystemMVCApp",
+                audience: "AirlineReservationSystemMVCAppUsers",
+                claims: userClaims,
+                expires: DateTime.Now.AddMinutes(10),
+                signingCredentials: userSigningCredentials);
 
             var userJwtSecurityTokenHandler = new JwtSecurityTokenHandler().WriteToken(userJwtSecurityToken);
             return userJwtSecurityTokenHandler;
-
-
         }
 
         public bool IsTokenValid(string userToken, string userSecretKey, string userIssuer, string userAudience)
@@ -48,7 +46,7 @@ namespace Airline_Reservation_System.Service
                 ValidateIssuer = true,
                 ValidIssuer = userIssuer,
 
-                ValidateAudience= true,
+                ValidateAudience = true,
                 ValidAudience = userAudience,
 
                 ValidateIssuerSigningKey = true,

@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace Airline_Reservation_System.Models
 {
@@ -21,5 +21,7 @@ namespace Airline_Reservation_System.Models
 
         [Required]
         public string userImage { get; set; }
+
+        public string Role { get; set; } = "user";
     }
 }

@@ -11,6 +11,7 @@ namespace Airline_Reservation_System.Repository
         Plain Details(int id);
         bool Edit(Plain plain);
         List<Plain> GetAllPlain();
+
         Plain GetPlainByName(string name);
     }
 }

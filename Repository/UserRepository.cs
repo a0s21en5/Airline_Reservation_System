@@ -1,11 +1,13 @@
 ﻿using Airline_Reservation_System.Context;
 using Airline_Reservation_System.Models;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Airline_Reservation_System.Repository
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository: IUserRepository
     {
         readonly AirlineReservationSystemContextDb _airlineReservationSystemContextDb;
         public UserRepository(AirlineReservationSystemContextDb airlineReservationSystemContextDb)
@@ -26,21 +28,15 @@ namespace Airline_Reservation_System.Repository
             _airlineReservationSystemContextDb.SaveChanges();
         }
 
+
         //Get User By Name
         public User GetUserByName(string name)
         {
             return _airlineReservationSystemContextDb.users.Where(u => u.userName == name).FirstOrDefault();
         }
 
-        //Delete User
-        public bool Delete(int id)
-        {
-            _airlineReservationSystemContextDb.users.Remove(GetUserById(id));
-            return _airlineReservationSystemContextDb.SaveChanges() == 1 ? false : true;
-        }
-
-        //Get User By Id
-        public User GetUserById(int id)
+        //checkEdit
+        public User checkEdit(int id)
         {
             return _airlineReservationSystemContextDb.users.Where(U => U.userId == id).FirstOrDefault();
         }
@@ -56,10 +52,17 @@ namespace Airline_Reservation_System.Repository
             _airlineReservationSystemContextDb.SaveChanges();
         }
 
-        //checkEdit
-        public User checkEdit(int id)
+        //Get User By Id
+        public User GetUserById(int id)
         {
             return _airlineReservationSystemContextDb.users.Where(U => U.userId == id).FirstOrDefault();
+        }
+
+        //Delete User
+        public bool Delete(int id)
+        {
+            _airlineReservationSystemContextDb.users.Remove(GetUserById(id));
+            return _airlineReservationSystemContextDb.SaveChanges() == 1 ? false : true;
         }
 
         //Details User
@@ -71,7 +74,34 @@ namespace Airline_Reservation_System.Repository
 
         public User Login(UserLogin userLogin)
         {
-            return _airlineReservationSystemContextDb.users.Where(U => U.userName == userLogin.Name && U.userPassword == userLogin.Password).FirstOrDefault();
+            return _airlineReservationSystemContextDb.users.Where(u => u.userName == userLogin.Name && u.userPassword == userLogin.Password).FirstOrDefault();
+        }
+
+        public List<Plain> GetAllPlain()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Plain> UserGetAllPlains()
+        {
+            return _airlineReservationSystemContextDb.plains.ToList();
+        }
+
+        public Ticket FindIdFromTicket(int userId, int id)
+        {
+            return _airlineReservationSystemContextDb.BookingTickets.Where(x=>x.userId == userId && x.plainId== id).FirstOrDefault();  
+        }
+
+        public bool BookTicket(Ticket ticket)
+        {
+            _airlineReservationSystemContextDb.BookingTickets.Add(ticket);
+            _airlineReservationSystemContextDb.SaveChanges();
+            return true;
+        }
+
+        public List<Ticket> BookingHistory(int userId)
+        {
+            return _airlineReservationSystemContextDb.BookingTickets.Where(x=>x.userId==userId).Include(x=>x.Plain).ToList();
         }
     }
 }

@@ -12,6 +12,13 @@ namespace Airline_Reservation_System.Service
             _plainRepository = plainRepository;
         }
 
+        //Show All Plain
+        public List<Plain> GetAllPlain()
+        {
+            return _plainRepository.GetAllPlain();
+        }
+
+        //AddPlain
         public bool AddPlain(Plain plain)
         {
             var PlainExistsStatus = _plainRepository.GetPlainByName(plain.plainName);
@@ -21,11 +28,16 @@ namespace Airline_Reservation_System.Service
             }
             return false;
         }
-
         public Plain checkEdit(int id)
         {
             return _plainRepository.checkEdit(id);
         }
+
+        public bool Edit(Plain plain)
+        {
+            return _plainRepository.Edit(plain);
+        }
+
 
         public bool Delete(int id)
         {
@@ -35,16 +47,6 @@ namespace Airline_Reservation_System.Service
         public Plain Details(int id)
         {
             return _plainRepository.Details(id);
-        }
-
-        public bool Edit(Plain plain)
-        {
-            return _plainRepository.Edit(plain);
-        }
-
-        public List<Plain> GetAllPlain()
-        {
-            return _plainRepository.GetAllPlain();
         }
     }
 }
