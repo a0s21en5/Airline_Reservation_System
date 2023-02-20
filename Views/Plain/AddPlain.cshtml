@@ -1,0 +1,48 @@
+﻿@model Airline_Reservation_System.Models.Plain
+
+@{
+    ViewData["Title"] = "AddPlain";
+}
+
+<h1>AddPlain</h1>
+
+<h4>Plain</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddPlain">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="plainName" class="control-label"></label>
+                <input asp-for="plainName" class="form-control" />
+                <span asp-validation-for="plainName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Source" class="control-label"></label>
+                <input asp-for="Source" class="form-control" />
+                <span asp-validation-for="Source" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Destination" class="control-label"></label>
+                <input asp-for="Destination" class="form-control" />
+                <span asp-validation-for="Destination" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="plainNumber" class="control-label"></label>
+                <input asp-for="plainNumber" class="form-control" />
+                <span asp-validation-for="plainNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="GetAllPlain">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
