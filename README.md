@@ -1,5 +1,7 @@
 # Airline-Reservation-System
 
+Developed an Airline-Reservation-System using .NET, C#, HTML, CSS, and Angular, enabling Customers should be able to search for flights based on their preferences and book tickets. The system should have a login page for customers and staff to access the system. The system should allow customers to view their reservation, and change or cancel them if needed.
+
 * Admin
 * Login
 
