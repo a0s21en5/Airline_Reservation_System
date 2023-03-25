@@ -1,0 +1,19 @@
+<div class="header-container">
+    <nav>
+        <h2 class="logo"><span>ARS </span>APP</h2>
+        <ul>
+            <li><a routerLink="">HOME</a></li>
+            <li><a href="">AGENT LOGIN</a></li>
+            <li><a href="">FLIGHTS</a></li>
+            <li><a href="">CONTACT US</a></li>
+        </ul>
+        <ul>
+            <li><a routerLink="login"><button type="button" *ngIf="change==null">Login</button></a></li>
+
+            <li><a routerLink="logout"><button type="button" *ngIf="change">Logout</button></a></li>
+
+            <!-- <li><a routerLink="register"><button type="button">Register</button></a></li> -->
+            <!-- <li><a routerLink="logout"><button type="button">Logout</button></a></li> -->
+        </ul>
+    </nav>
+</div>

@@ -1,0 +1,18 @@
+<app-header></app-header>
+<body>
+    <div class="login">
+        <h1>LogIn</h1>
+        <form class="sign-up" #loginForm="ngForm" (ngSubmit)="loginUser(loginForm)">
+
+            <label>Email</label>
+            <input type="text" placeholder="" id="email" name="email" [(ngModel)]="login.email">
+
+            <label>Password</label>
+            <input type="password" placeholder="" id="password" name="password" [(ngModel)]="login.password">
+
+            <input type="submit" value="Submit">
+
+            <p class="para">Don't have an Account?  <a href="register">SignUp Here</a></p>
+        </form>
+    </div>
+</body>

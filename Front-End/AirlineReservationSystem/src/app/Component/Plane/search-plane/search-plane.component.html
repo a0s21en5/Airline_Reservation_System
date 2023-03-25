@@ -1,0 +1,38 @@
+<app-header></app-header>
+
+<body>
+    <div class="Search-Plane">
+        <h1>Search Flights</h1>
+        <form class="sign-up">
+
+            <input type="text" placeholder="Source" name="source" [(ngModel)]="planes.source">
+
+            <input type="text" placeholder="Destination" name="destination" [(ngModel)]="planes.destination">
+
+            <input type="button" value="Search" (click)="SearhPlane(planes.source,planes.destination)">
+        </form>
+    </div>
+
+    <div>
+        <section class="table-boddy">
+            <table>
+                <tr>
+                    <th>Number</th>
+                    <th>Name</th>
+                    <th>Source</th>
+                    <th>Destination</th>
+                    <th>Price</th>
+                </tr>
+                <tr *ngFor="let Plane of planes">
+                    <td>{{Plane.number}}</td>
+                    <td><img
+                            src="https://png.pngtree.com/png-clipart/20190520/original/pngtree-aeroplane-clipart-airplane-vector-cartoon-plane-png-image_4246918.jpg">{{Plane.name}}
+                    </td>
+                    <td>{{Plane.source}}</td>
+                    <td>{{Plane.destination}}</td>
+                    <td>{{Plane.price}}</td>
+                </tr>
+            </table>
+        </section>
+    </div>
+</body>

@@ -1,0 +1,24 @@
+<app-header></app-header>
+<body>
+    <div class="add-Plane">
+        <h1>Add Plane</h1>
+        <form class="sign-up">
+            <label>Name</label>
+            <input type="text" placeholder="" name="name" [(ngModel)]="planes.name">
+
+            <label>Source</label>
+            <input type="text" placeholder="" name="source" [(ngModel)]="planes.source">
+
+            <label>Destination</label>
+            <input type="text" placeholder="" name="destination" [(ngModel)]="planes.destination">
+
+            <label>Number</label>
+            <input type="text" placeholder="" name="number" [(ngModel)]="planes.number">
+
+            <label>Price</label>
+            <input type="text" placeholder="" name="price" [(ngModel)]="planes.price">
+
+            <input type="button" value="Submit" (click)="addplane()">
+        </form>
+    </div>
+</body>

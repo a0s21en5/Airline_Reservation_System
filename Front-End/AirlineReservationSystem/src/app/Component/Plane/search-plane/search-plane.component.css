@@ -1,0 +1,157 @@
+body {
+    margin-top: 50px;
+}
+
+.Search-Plane {
+    background-color: #344a72;
+    width: 800px;
+    height: 130px;
+    margin: auto;
+}
+
+.Search-Plane h1 {
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+    padding-top: 15px;
+}
+
+form {
+    width: 100%;
+    margin-left: 25px;
+}
+
+
+form input {
+    margin-top: 10px;
+    margin: 5px;
+    width: 30%;
+    height: 35px;
+    padding: 7px;
+    border: none;
+    border: 1px solid gray;
+    border-radius: 6px;
+    outline: none;
+}
+
+
+form input[type="button"] {
+    width: 30%;
+    height: 35px;
+    border: none;
+    background-color: #49c1a2;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+/*  */
+
+body {
+    min-height: 100vh;
+    /* display: flex; */
+    background-image: url(/src/assets/Images/ars-1.jpg);
+    justify-content: center;
+    align-items: center;
+}
+
+table{
+    margin-top: 50px;
+}
+
+td img {
+    width: 36px;
+    height: 36px;
+    margin-right: .5rem;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+main.table {
+    width: 82vw;
+    height: 90vh;
+    background-color: #fff5;
+    backdrop-filter: blur(7px);
+    box-shadow: 0 .4rem .8rem #0005;
+    border-radius: .8rem;
+    overflow: hidden;
+}
+
+table {
+    width: 100%;
+}
+
+table th {
+    position: sticky;
+    top: 0;
+    left: 0;
+    background-color: #d5d1defe;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #0000000b;
+}
+
+tbody tr:hover {
+    background-color: #fff6;
+}
+
+table,
+th,
+td {
+    padding: 1rem;
+    border-collapse: collapse;
+}
+
+.table-header {
+    width: 100%;
+    height: 10%;
+    background-color: #fff4;
+    padding: .8rem 1rem;
+}
+
+.table-boddy {
+    width: 95%;
+    max-height: calc(89% .8rem);
+    background-color: #fffb;
+    margin: .8rem auto;
+    overflow: auto;
+}
+
+.table-boddy::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+}
+
+.table-boddy::-webkit-scrollbar-thumb {
+    border-radius: .5rem;
+    background-color: #0004;
+    visibility: hidden;
+}
+
+.table-boddy:hover:-webkit-scrollbar-thumb {
+    visibility: visible;
+}
+
+.status {
+    /* padding: .4rem 0; */
+    padding: 10px;
+    border-radius: 2rem;
+    border: none;
+    cursor: pointer;
+}
+
+.status.Delete {
+    background-color: #d893a3;
+    color: #b30021;
+}
+
+.status.Edit {
+    background-color: #86e49d;
+    color: #006b21;
+}
+
+button a{
+    text-decoration: none;
+}

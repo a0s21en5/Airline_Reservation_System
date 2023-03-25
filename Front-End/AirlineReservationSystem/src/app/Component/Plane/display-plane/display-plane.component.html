@@ -1,0 +1,40 @@
+<app-header></app-header>
+
+<body>
+    <main class="table">
+        <section class="table-header">
+            <h1>Book Tickets</h1>
+        </section>
+        <section class="table-boddy">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Source</th>
+                        <th>Destination</th>
+                        <th>Number</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let Plane of planes" (mouseover)="selectedplane=Plane">
+                        <td>{{Plane.id}}</td>
+                        <!-- <td><img src="/src/assets/Images/ars-1.jpg">{{Plane.name}}</td> -->
+                        <td><img
+                                src="https://png.pngtree.com/png-clipart/20190520/original/pngtree-aeroplane-clipart-airplane-vector-cartoon-plane-png-image_4246918.jpg">{{Plane.name}}
+                        </td>
+                        <td>{{Plane.source}}</td>
+                        <td>{{Plane.destination}}</td>
+                        <td><strong>{{Plane.number}}</strong></td>
+                        <td><strong>{{Plane.price}}</strong></td>
+                        <td><button class="status Book" (click)="BookTicket()">Book</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+
+<!-- [routerLink]="['/deleteplane',Plane.id]" -->
